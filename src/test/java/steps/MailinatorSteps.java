@@ -13,20 +13,21 @@ public class MailinatorSteps {
 
     @Step("Open edit profile page")
     public MailinatorSteps openMailinatorPage() {
-        page
-                .openPage();
+        page.openPage();
         return this;
     }
 
-    @Step("Go to emailBox")
-    public MailinatorSteps goToEmailBox(String email){
+    @Step("Go to emailBox '{email}'")
+    public MailinatorSteps goToEmailBox(String email) {
         page.goToEmailBox(email);
         return this;
     }
 
     @Step("Confirm registration")
-    public MailinatorSteps confirmRegistration(){
-        page.goToMailAndConfirm();
+    public MailinatorSteps confirmRegistration() {
+        page
+                .goToMailAndConfirm()
+                .checkRegistrationConfirmResult();
         return this;
     }
 }

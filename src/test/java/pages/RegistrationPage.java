@@ -1,22 +1,25 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.openqa.selenium.By.id;
 
-public class RegistrationPage extends BasePage{
+public class RegistrationPage extends BasePage {
 
     private static final String URL = "https://my.monkkee.com/account/registration";
     private static final String COMPLETE_REGISTRATION_BUTTON = ".btn";
-    private static final String REGISTRATION_EMAIL_CSS = "#registration_email";
-    private static final String REGISTRATION_PASSWORD_CSS = "#registration_password";
-    private static final String CONFIRM_PASSWORD_CSS = "#registration_password_confirmation";
-    private static final String TERMS_OF_USE_CHECKBOX_CSS = "#registration_password_confirmation";
-    private static final String LOST_PASSWORD_WARNING_CHECKBOX_CSS = "#registration_lost_password_warning_registered";
+    private static final By REGISTRATION_EMAIL_ID = id("registration_email");
+    private static final By REGISTRATION_PASSWORD_ID = id("registration_password");
+    private static final By CONFIRM_PASSWORD_ID = id("registration_password_confirmation");
+    private static final By TERMS_OF_USE_CHECKBOX_ID = id("registration_terms_of_use");
+    private static final By LOST_PASSWORD_WARNING_CHECKBOX_ID = id("registration_lost_password_warning_registered");
+    private static final String REGISTRATION_RESULT_MESSAGE = "h1";
 
     @Override
-    RegistrationPage openPage() {
+    public RegistrationPage openPage() {
         open(URL);
         isPageOpened();
         return this;
@@ -27,12 +30,18 @@ public class RegistrationPage extends BasePage{
         $(COMPLETE_REGISTRATION_BUTTON).shouldBe(Condition.visible);
     }
 
-    public void fillInRegistrationData(String email, String password){
-        $(REGISTRATION_EMAIL_CSS).setValue(email);
-        $(REGISTRATION_PASSWORD_CSS).setValue(password);
-        $(CONFIRM_PASSWORD_CSS).setValue(password);
-        $(TERMS_OF_USE_CHECKBOX_CSS).click();
-        $(LOST_PASSWORD_WARNING_CHECKBOX_CSS).click();
+    public RegistrationPage fillInRegistrationData(String email, String password) {
+        $(REGISTRATION_EMAIL_ID).setValue(email);
+        $(REGISTRATION_PASSWORD_ID).setValue(password);
+        $(CONFIRM_PASSWORD_ID).setValue(password);
+        $(TERMS_OF_USE_CHECKBOX_ID).click();
+        $(LOST_PASSWORD_WARNING_CHECKBOX_ID).click();
         $(COMPLETE_REGISTRATION_BUTTON).click();
+        return this;
+    }
+
+    public RegistrationPage checkRegistrationResult() {
+        $(REGISTRATION_RESULT_MESSAGE).shouldBe(Condition.text("User registered"));
+        return this;
     }
 }
