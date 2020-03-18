@@ -27,9 +27,9 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage logIn(String email, String password) {
-        $(EMAIL_INPUT_ID).setValue(email);
-        $(PASSWORD_INPUT_ID).setValue(password);
-        $(LOGIN_BUTTON_CSS).click();
+        element($(EMAIL_INPUT_ID)).setValue(email);
+        element($(PASSWORD_INPUT_ID)).setValue(password);
+        element($(LOGIN_BUTTON_CSS)).click();
         return this;
     }
 }

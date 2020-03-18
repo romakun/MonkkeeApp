@@ -7,4 +7,9 @@
             <class name="tests.MailinatorTest"/>
         </classes>
     </test> <!-- Test -->
+    <test name="LogIn Test">
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test> <!-- Test -->
 </suite>

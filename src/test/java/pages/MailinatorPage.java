@@ -34,25 +34,25 @@ public class MailinatorPage extends BasePage {
     }
 
     public MailinatorPage goToEmailBox(String email) {
-        $(EMAIL_INPUT_ID).setValue(email);
-        $(GO_BUTTON_ID).click();
-        $(TRASH_ICON_ID).shouldBe(Condition.visible);
+        element($(EMAIL_INPUT_ID)).setValue(email);
+        element($(GO_BUTTON_ID)).click();
+        element($(TRASH_ICON_ID)).shouldBe(Condition.visible);
         return this;
     }
 
     public MailinatorPage goToMailAndConfirm() {
-        $(byText(REGISTRATION_MESSAGE_TITLE)).click();
+        element($(byText(REGISTRATION_MESSAGE_TITLE))).click();
         switchTo().frame(MESSAGE_FRAME_LOCATOR);
-        $(By.xpath(CONFIRM_BUTTON_XPATH)).click();
+        element($(By.xpath(CONFIRM_BUTTON_XPATH))).click();
         return this;
     }
 
     public MailinatorPage checkRegistrationConfirmResult() {
         switchTo().window(1);
         try {
-            $(CONFIRMATION_MESSAGE).shouldBe(Condition.text("Registration confirmed successfully"));
+            element($(CONFIRMATION_MESSAGE)).shouldBe(Condition.text("Registration confirmed successfully"));
         } catch (ElementShould e) {
-            $(CONFIRMATION_MESSAGE).shouldBe(Condition.text("Confirmation failed"));
+            element($(CONFIRMATION_MESSAGE)).shouldBe(Condition.text("Confirmation failed"));
             Assert.fail("Скорее всего данный пользователь уже зарегистрирован");
         }
         return this;

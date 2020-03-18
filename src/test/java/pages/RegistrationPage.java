@@ -31,17 +31,17 @@ public class RegistrationPage extends BasePage {
     }
 
     public RegistrationPage fillInRegistrationData(String email, String password) {
-        $(REGISTRATION_EMAIL_ID).setValue(email);
-        $(REGISTRATION_PASSWORD_ID).setValue(password);
-        $(CONFIRM_PASSWORD_ID).setValue(password);
-        $(TERMS_OF_USE_CHECKBOX_ID).click();
-        $(LOST_PASSWORD_WARNING_CHECKBOX_ID).click();
-        $(COMPLETE_REGISTRATION_BUTTON).click();
+        element($(REGISTRATION_EMAIL_ID)).setValue(email);
+        element($(REGISTRATION_PASSWORD_ID)).setValue(password);
+        element($(CONFIRM_PASSWORD_ID)).setValue(password);
+        element($(TERMS_OF_USE_CHECKBOX_ID)).click();
+        element($(LOST_PASSWORD_WARNING_CHECKBOX_ID)).click();
+        element($(COMPLETE_REGISTRATION_BUTTON)).click();
         return this;
     }
 
     public RegistrationPage checkRegistrationResult() {
-        $(REGISTRATION_RESULT_MESSAGE).shouldBe(Condition.text("User registered"));
+        element($(REGISTRATION_RESULT_MESSAGE)).shouldBe(Condition.text("User registered"));
         return this;
     }
 }
