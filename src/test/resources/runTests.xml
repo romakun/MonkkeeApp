@@ -9,7 +9,7 @@
     </test> <!-- Test -->
     <test name="LogIn Test">
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="tests.DeleteAllEntriesTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>

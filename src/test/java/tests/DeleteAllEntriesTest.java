@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 
-public class LoginTest extends BaseTest {
+public class DeleteAllEntriesTest extends BaseTest {
 
     @Test
-    public void logInMonkkeeAppTest() throws IOException {
+    public void deleteAllEntries() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
         loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
-        mainsteps.checkOpened();
+        mainsteps
+                .checkOpened()
+                .deleteAllEntries();
     }
 }
