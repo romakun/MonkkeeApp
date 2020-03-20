@@ -50,16 +50,16 @@ public class MainPage extends BasePage {
     }
 
     public void clickCreateEntryButton(){
-        element($(CREATE_ENTRY_BUTTON_ID),"Жмем на кнопку создания записи").click();
+        $(CREATE_ENTRY_BUTTON_ID,"Жмем на кнопку создания записи").click();
     }
 
     public void clickManageTagsLink(){
-        element($(byText(MANAGE_TAGS_LINK_TEXT)), "Жмем на сссылку редактирования тегов").click();
+        $(byText(MANAGE_TAGS_LINK_TEXT), "Жмем на сссылку редактирования тегов").click();
     }
 
     public MainPage deleteAllEntries(){
-        element($(SELECT_ALL_CHECKBOX_CSS), "Жмем на чекбокc выделения всех записей").click();
-        element($(DELETE_ENTRY_BUTTON_ID), "Жмем на кнопку удаления записей").click();
+        $(SELECT_ALL_CHECKBOX_CSS, "Жмем на чекбокc выделения всех записей").click();
+        $(DELETE_ENTRY_BUTTON_ID, "Жмем на кнопку удаления записей").click();
         switchTo().alert().accept();
         $$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
         return this;

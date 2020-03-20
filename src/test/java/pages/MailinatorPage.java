@@ -35,25 +35,25 @@ public class MailinatorPage extends BasePage {
     }
 
     public MailinatorPage goToEmailBox(String email) {
-        element($(EMAIL_INPUT_ID), "Вводим Email " + email + " в поле поиска").setValue(email);
-        element($(GO_BUTTON_ID), "Жмем на кнопку GO").click();
+        $(EMAIL_INPUT_ID, "Вводим Email " + email + " в поле поиска").setValue(email);
+        $(GO_BUTTON_ID, "Жмем на кнопку GO").click();
         $(TRASH_ICON_ID).shouldBe(Condition.visible);
         return this;
     }
 
     public MailinatorPage goToMailAndConfirm() {
-        element($(byText(REGISTRATION_MESSAGE_TITLE)), "Ищем письмо по заголовку" + REGISTRATION_MESSAGE_TITLE + "и кликаем по нему").click();
+        $(byText(REGISTRATION_MESSAGE_TITLE), "Ищем письмо по заголовку" + REGISTRATION_MESSAGE_TITLE + "и кликаем по нему").click();
         switchTo().frame(MESSAGE_FRAME_LOCATOR);
-        element($(By.xpath(CONFIRM_BUTTON_XPATH)), "Жмем на кнопку подтвержднеия регистрации").click();
+        $(By.xpath(CONFIRM_BUTTON_XPATH), "Жмем на кнопку подтвержднеия регистрации").click();
         return this;
     }
 
     public MailinatorPage checkRegistrationConfirmResult() {
         switchTo().window(1);
         try {
-            element($(CONFIRMATION_MESSAGE), "Проверяем сообщение с результатом регистрации").shouldBe(Condition.text("Registration confirmed successfully"));
+            $(CONFIRMATION_MESSAGE, "Проверяем сообщение с результатом регистрации").shouldBe(Condition.text("Registration confirmed successfully"));
         } catch (ElementShould e) {
-            element($(CONFIRMATION_MESSAGE), "Проверяем сообщение с результатом регистрации").shouldBe(Condition.text("Confirmation failed"));
+            $(CONFIRMATION_MESSAGE, "Проверяем сообщение с результатом регистрации").shouldBe(Condition.text("Confirmation failed"));
             Assert.fail("Скорее всего данный пользователь уже зарегистрирован");
         }
         return this;

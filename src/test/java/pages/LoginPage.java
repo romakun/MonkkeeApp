@@ -28,9 +28,9 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage logIn(String email, String password) {
-        element($(EMAIL_INPUT_ID), "Вводим Email " + email + " В поле User").setValue(email);
-        element($(PASSWORD_INPUT_ID), "Вводим Пароль " + password + " В поле Password").setValue(password);
-        element($(LOGIN_BUTTON_CSS), "Нажимаем на кнопку Login").click();
+        $(EMAIL_INPUT_ID, "Вводим Email " + email + " В поле User").setValue(email);
+        $(PASSWORD_INPUT_ID, "Вводим Пароль " + password + " В поле Password").setValue(password);
+        $(LOGIN_BUTTON_CSS, "Нажимаем на кнопку Login").click();
         return this;
     }
 }
