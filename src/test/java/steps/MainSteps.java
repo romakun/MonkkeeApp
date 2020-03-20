@@ -11,7 +11,13 @@ public class MainSteps {
 
     @Step("Check main page opened")
     public MainSteps checkOpened(){
-        page.openPage();
+        page.isPageOpened();
+        return this;
+    }
+
+    @Step("Delete all entries")
+    public MainSteps deleteAllEntries(){
+        page.deleteAllEntries();
         return this;
     }
 }

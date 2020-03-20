@@ -8,9 +8,8 @@ import java.nio.file.Files;
 
 public class MailinatorTest extends BaseTest {
 
-
     @Test
-    public void confirmRegistrationTest() throws IOException {
+    public void confirmRegistrationMessage() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
         mailinator
                 .openMailinatorPage()

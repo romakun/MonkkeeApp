@@ -22,14 +22,15 @@ public class LoginPage extends BasePage {
     }
 
     @Override
-    void isPageOpened() {
+    public LoginPage isPageOpened() {
         $(LOGIN_BUTTON_CSS).shouldBe(Condition.visible);
+        return this;
     }
 
     public LoginPage logIn(String email, String password) {
-        $(EMAIL_INPUT_ID).setValue(email);
-        $(PASSWORD_INPUT_ID).setValue(password);
-        $(LOGIN_BUTTON_CSS).click();
+        element($(EMAIL_INPUT_ID), "Вводим Email " + email + " В поле User").setValue(email);
+        element($(PASSWORD_INPUT_ID), "Вводим Пароль " + password + " В поле Password").setValue(password);
+        element($(LOGIN_BUTTON_CSS), "Нажимаем на кнопку Login").click();
         return this;
     }
 }

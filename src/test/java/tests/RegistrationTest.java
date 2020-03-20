@@ -19,7 +19,7 @@ public class RegistrationTest extends BaseTest {
     }
 
     @Test
-    public void registrationTest() throws IOException {
+    public void registration() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
         regsteps
                 .openRegistrationPage()
