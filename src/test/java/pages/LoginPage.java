@@ -10,7 +10,7 @@ import static org.openqa.selenium.By.id;
 public class LoginPage extends BasePage {
 
     private static final String URL = "https://my.monkkee.com/#/";
-    private static final By EMAIL_INPUT_ID = id("loginss");
+    private static final By EMAIL_INPUT_ID = id("login");
     private static final By PASSWORD_INPUT_ID = id("password");
     private static final String LOGIN_BUTTON_CSS = ".btn";
 
