@@ -29,7 +29,7 @@ public abstract class BasePage {
     public SelenideElement $(By element, String logMessage){
         $(element);
         log.info(logMessage);
-        return $(element);
+        return Selenide.$(element);
     }
 
     public SelenideElement $(String element){
@@ -46,7 +46,7 @@ public abstract class BasePage {
     public SelenideElement $(String element, String logMessage){
         $(element);
         log.info(logMessage);
-        return $(element);
+        return Selenide.$(element);
 
     }
 }
