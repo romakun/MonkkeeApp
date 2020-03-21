@@ -11,7 +11,7 @@ public class LoginPage extends BasePage {
 
     private static final String URL = "https://my.monkkee.com/#/";
     private static final By EMAIL_INPUT_ID = id("login");
-    private static final By PASSWORD_INPUT_ID = id("passwor");
+    private static final By PASSWORD_INPUT_ID = id("password");
     private static final String LOGIN_BUTTON_CSS = ".btn";
 
     @Override
