@@ -1,12 +1,14 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+
 
 import java.util.List;
 
@@ -32,7 +34,6 @@ public class MainPage extends BasePage {
     private static final String ENTRY_TITLE_TEXT_CSS = ".title ";
     private static final By TAGS_SECTION_ID = id("tags");
     private static final String TAG_IN_ENTRY_CSS = "[ng-repeat='tag in entry.tags']";
-
 
     //CALENDAR LOCATORS
     private static final By CALENDAR_INPUT_ID = id("datepicker");
@@ -161,6 +162,42 @@ public class MainPage extends BasePage {
         } catch (ElementShould e) {
             Assert.fail("Количество записей не соответсвует счетчику тега");
         }
+        return this;
+    }
+
+    public MainPage checkEntryAdded(String headerText, String bodyText, String tagName) {
+        try {
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
+            for (int i = 0; i < entries.size(); i++) {
+                if (i < entries.size()) {
+                    try {
+                        $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(headerText));
+                        $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(bodyText));
+                        $$(ENTRY_LOCATOR_CSS, i).find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
+                        return this;
+                    } catch (ElementShould e) {
+                    }
+                } else {
+                    Assert.fail("Нет записей с таким текстом");
+                }
+            }
+        } catch (ElementNotFound e) {
+            Assert.fail("Не найдено ни одной записи с таким текстом");
+        }
+        return this;
+    }
+
+    public int checkEntriesCount(){
+        return $$(ENTRY_LOCATOR_CSS).size();
+    }
+
+    public MainPage checkEntriesCount(int entriesBeforeDeleting){
+        $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entriesBeforeDeleting - 1);
+        return this;
+    }
+
+    public MainPage checkLackOfEntries(){
+        $$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
         return this;
     }
 }

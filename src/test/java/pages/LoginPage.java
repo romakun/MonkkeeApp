@@ -1,9 +1,12 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static org.openqa.selenium.By.id;
 
 public class LoginPage extends BasePage {
@@ -38,8 +41,9 @@ public class LoginPage extends BasePage {
     public void checkModal() {
         try {
             $(MODAL_FEED_HEADER_CSS).shouldBe(Condition.visible);
+            sleep(6000);
             $(byText(MODAL_CANCEL_BUTTON_TEXT)).click();
-        } catch (AssertionError e){
+        } catch (AssertionError e) {
 
         }
     }

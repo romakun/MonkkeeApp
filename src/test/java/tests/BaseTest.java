@@ -3,10 +3,7 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
-import steps.LoginSteps;
-import steps.MailinatorSteps;
-import steps.MainSteps;
-import steps.RegistrationSteps;
+import steps.*;
 import tests.base.TestListener;
 
 
@@ -21,6 +18,9 @@ public class BaseTest {
     RegistrationSteps regsteps;
     LoginSteps loginsteps;
     MainSteps mainsteps;
+    EntrySteps entrysteps;
+    ManageTagSteps tagsteps;
+    EditTagSteps edittagsteps;
 
     Properties properties = new Properties();
     Path path = Paths.get("src/test/resources/userData.xml");
@@ -31,12 +31,14 @@ public class BaseTest {
         //   Configuration.headless = true;
         Configuration.startMaximized = true;
         Configuration.screenshots = true;
-        Configuration.clickViaJs = true;
-        Configuration.timeout = 6000;
+        Configuration.timeout = 3000;
         mailinator = new MailinatorSteps();
         regsteps = new RegistrationSteps();
         loginsteps = new LoginSteps();
         mainsteps = new MainSteps();
+        entrysteps = new EntrySteps();
+        tagsteps = new ManageTagSteps();
+        edittagsteps = new EditTagSteps();
     }
 
 }
