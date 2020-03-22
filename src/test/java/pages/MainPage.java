@@ -1,7 +1,6 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
@@ -83,7 +82,8 @@ public class MainPage extends BasePage {
         if ($$(ENTRY_LOCATOR_CSS).size() > 0) {
             $(SELECT_ALL_CHECKBOX_CSS, "Жмем на чекбокc выделения всех записей").click();
             deleteEntry();
-            Selenide.$$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
+            sleep(2000);
+            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
             $(byText(NO_ENTRIES_FOUND_MESSAGE)).shouldBe(Condition.visible);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
@@ -97,7 +97,8 @@ public class MainPage extends BasePage {
             List<SelenideElement> entryCheckboxes = $$(ENTRY_CHECKBOX_LOCATOR_CSS);
             entryCheckboxes.get(elementNumber - 1).click();
             deleteEntry();
-            Selenide.$$(ENTRY_LOCATOR_CSS).shouldHaveSize(entryCountBeforeDeleting - 1);
+            sleep(2000);
+            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entryCountBeforeDeleting - 1);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
         }
@@ -112,6 +113,7 @@ public class MainPage extends BasePage {
     public MainPage searchEntryByText(String text) {
         $(SEARCH_INPUT_ID).setValue(text);
         $(SEARCH_BUTTON_CSS).click();
+        sleep(2000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
             for (int i = 0; i < entries.size(); i++) {
@@ -133,6 +135,7 @@ public class MainPage extends BasePage {
 
     public MainPage searchEntryByTag(String tagName) {
         $(TAGS_SECTION_ID).find(withText(tagName)).click();
+        sleep(2000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
             for (int i = 0; i < entries.size(); i++) {
@@ -154,7 +157,7 @@ public class MainPage extends BasePage {
         int lastElement = text.length - 1;
         int entriesCountWithTag = Integer.parseInt(text[lastElement].replaceAll("[^0-9]", ""));
         try {
-            Selenide.$$(ENTRY_LOCATOR_CSS).shouldHaveSize(entriesCountWithTag);
+            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entriesCountWithTag);
         } catch (ElementShould e) {
             Assert.fail("Количество записей не соответсвует счетчику тега");
         }
