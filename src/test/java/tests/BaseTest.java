@@ -32,6 +32,7 @@ public class BaseTest {
         Configuration.startMaximized = true;
         Configuration.screenshots = true;
         Configuration.clickViaJs = true;
+        //Configuration.timeout = 8000;
         mailinator = new MailinatorSteps();
         regsteps = new RegistrationSteps();
         loginsteps = new LoginSteps();

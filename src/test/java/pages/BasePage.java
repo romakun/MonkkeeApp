@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 
 
+
 @Log4j2
 public abstract class BasePage {
 
@@ -49,4 +50,5 @@ public abstract class BasePage {
         return Selenide.$(element);
 
     }
+
 }
