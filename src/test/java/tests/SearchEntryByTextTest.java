@@ -7,7 +7,7 @@ import java.nio.file.Files;
 
 public class SearchEntryByTextTest extends BaseTest {
 
-    String searchedText = "f";
+    String searchedText = "d";
 
     @Test
     public void searchEntryByText() throws IOException {
