@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
@@ -52,7 +53,7 @@ public abstract class BasePage {
 
     }
 
-    public List<SelenideElement> $$(String elements){
+    public ElementsCollection $$(String elements){
         return Selenide.$$(elements);
     }
 
