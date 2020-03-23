@@ -47,7 +47,7 @@ public class MailinatorPage extends BasePage {
     }
 
     public MailinatorPage goToMailAndConfirm() {
-        $(byText(REGISTRATION_MESSAGE_TITLE), "Ищем письмо по заголовку" + REGISTRATION_MESSAGE_TITLE + "и кликаем по нему").click();
+        $(byText(REGISTRATION_MESSAGE_TITLE), "Ищем письмо по заголовку " + REGISTRATION_MESSAGE_TITLE + "и кликаем по нему").click();
         switchTo().frame(MESSAGE_FRAME_LOCATOR);
         $(By.xpath(CONFIRM_BUTTON_XPATH), "Жмем на кнопку подтвержднеия регистрации").click();
         return this;
