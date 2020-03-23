@@ -122,7 +122,7 @@ public class MainPage extends BasePage {
     public void deleteEntry() {
         $(DELETE_ENTRY_BUTTON_ID, "Жмем на кнопку удаления записей").click();
         switchTo().alert().accept();
-        $(DELETE_ENTRY_BUTTON_ID).waitUntil(Condition.disabled, 6000);
+        $(DELETE_ENTRY_BUTTON_ID).waitUntil(Condition.cssClass(".disabled"), 6000);
     }
 
     public MainPage searchEntryByText(String text) {
@@ -152,7 +152,7 @@ public class MainPage extends BasePage {
         $(TAGS_SECTION_ID).shouldBe(Condition.visible);
         $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
 //            sleep(3000);
-        $(RESET_SEARCH_LINK).shouldBe(Condition.visible);
+        $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
