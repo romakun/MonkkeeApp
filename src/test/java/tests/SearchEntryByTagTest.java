@@ -4,6 +4,7 @@ import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 public class SearchEntryByTagTest extends BaseTest {
@@ -15,7 +16,8 @@ public class SearchEntryByTagTest extends BaseTest {
 
     @Test
     public void searchEntriesByTag() throws IOException {
-        loginsteps.logIn("balabama@mailinator.com", "6699273Color");
+        properties.loadFromXML(Files.newInputStream(path));
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();

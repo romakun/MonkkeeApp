@@ -83,4 +83,10 @@ public class MainSteps {
         page.checkLackOfEntries();
         return this;
     }
+
+    @Step("Open page")
+    public MainSteps openPage(){
+        page.openPage();
+        return this;
+    }
 }

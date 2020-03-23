@@ -19,7 +19,7 @@ public class RegistrationPage extends BasePage {
     private static final By CONFIRM_PASSWORD_ID = id("registration_password_confirmation");
     private static final By TERMS_OF_USE_CHECKBOX_ID = id("registration_terms_of_use");
     private static final By LOST_PASSWORD_WARNING_CHECKBOX_ID = id("registration_lost_password_warning_registered");
-    private static final String REGISTRATION_RESULT_MESSAGE = "User registered";
+    private static final String REGISTRATION_RESULT_MESSAGE = "h1";
 
     @Override
     public RegistrationPage openPage() {
@@ -50,7 +50,7 @@ public class RegistrationPage extends BasePage {
     }
 
     public RegistrationPage checkRegistrationResult() {
-        $(byText(REGISTRATION_RESULT_MESSAGE), "Проверяем сообщение о завершении регистрации").shouldBe(Condition.visible);
+        $(REGISTRATION_RESULT_MESSAGE, "Проверяем сообщение о завершении регистрации").shouldBe(Condition.text("User registered"));
         return this;
     }
 }

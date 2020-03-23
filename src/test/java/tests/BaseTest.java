@@ -1,6 +1,8 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import steps.*;
@@ -29,11 +31,11 @@ public class BaseTest {
     @BeforeClass
     public void setupDriver() {
 
-//        Configuration.headless = true;
+        Configuration.headless = true;
         Configuration.startMaximized = true;
         Configuration.clickViaJs = true;
         Configuration.screenshots = true;
-        Configuration.timeout = 8000;
+        Configuration.timeout = 6000;
         mailinator = new MailinatorSteps();
         regsteps = new RegistrationSteps();
         loginsteps = new LoginSteps();
@@ -42,6 +44,11 @@ public class BaseTest {
         tagsteps = new ManageTagSteps();
         edittagsteps = new EditTagSteps();
         headersteps = new HeaderSteps();
+    }
+
+    @AfterClass
+    public void clearCash() {
+        WebDriverRunner.closeWebDriver();
     }
 }
 

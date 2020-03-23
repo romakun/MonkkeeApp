@@ -4,6 +4,7 @@ import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 public class DeleteTagInManageTagsTest extends BaseTest {
@@ -13,7 +14,8 @@ public class DeleteTagInManageTagsTest extends BaseTest {
 
     @Test
     public void deleteTag() throws IOException {
-        loginsteps.logIn("balabama@mailinator.com", "6699273Color");
+        properties.loadFromXML(Files.newInputStream(path));
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();
