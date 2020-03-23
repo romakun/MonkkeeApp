@@ -15,7 +15,8 @@ public class LoginSteps {
     public LoginSteps logIn(String email, String password){
         page
                 .openPage()
-                .logIn(email, password);
+                .logIn(email, password)
+                .checkModal();
         return this;
     }
 }
