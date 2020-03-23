@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.Selenide.switchTo;
 import static org.openqa.selenium.By.id;
 
@@ -57,7 +58,9 @@ public class EntryPage extends BasePage {
 
     public EntryPage addNewTagInEntry(String newTag){
         $(CREATE_NEW_TAG_INPUT_ID, "Вводим имя нового тега в поле - " + newTag).sendKeys(newTag);
+        sleep(1000);
         $(CREATE_NEW_TAG_BUTTON_ID, "Сохраняем новый тег").click();
+        sleep(1000);
         $(ASSIGNED_TAGS_BLOCK_CSS, "Проверяем есть ли созданный тег в блоке прикрепленных").find(byText(newTag)).shouldBe(Condition.visible);
         return this;
     }
