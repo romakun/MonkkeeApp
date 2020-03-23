@@ -32,7 +32,7 @@ public class BaseTest {
     public void setupDriver() {
 
         Configuration.headless = true;
-        Configuration.startMaximized = true;
+        Configuration.browserSize = "1920x1080";
         Configuration.clickViaJs = true;
         Configuration.screenshots = true;
         Configuration.timeout = 6000;

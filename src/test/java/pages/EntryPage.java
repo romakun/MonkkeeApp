@@ -5,11 +5,10 @@ import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
-import utils.AllureUtils;
+
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.switchTo;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.By.id;
 
 public class EntryPage extends BasePage {
@@ -57,13 +56,9 @@ public class EntryPage extends BasePage {
     }
 
     public EntryPage addNewTagInEntry(String newTag){
-        AllureUtils.takeScreenshot(getWebDriver());
         $(CREATE_NEW_TAG_INPUT_ID, "Вводим имя нового тега в поле - " + newTag).sendKeys(newTag);
-        AllureUtils.takeScreenshot(getWebDriver());
         $(CREATE_NEW_TAG_BUTTON_ID, "Сохраняем новый тег").click();
-        AllureUtils.takeScreenshot(getWebDriver());
         $(ASSIGNED_TAGS_BLOCK_CSS, "Проверяем есть ли созданный тег в блоке прикрепленных").find(byText(newTag)).shouldBe(Condition.visible);
-        AllureUtils.takeScreenshot(getWebDriver());
         return this;
     }
 
