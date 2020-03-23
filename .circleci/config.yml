@@ -31,7 +31,7 @@ jobs:
           command: chmod 777 src/test/resources/webdrivers/chromedriver.exe
       - run:
           name: Running tests
-          command: mvn clean install
+          command: mvn clean test
       - run:
           name: Generate allure report
           command: mvn allure:report
@@ -53,6 +53,6 @@ workflows:
           filters:
             branches:
               only:
-                - dev
+                - dev6
     jobs:
       - ui-tests

@@ -61,5 +61,32 @@ public class MainSteps {
         return this;
     }
 
+    @Step("Check created entry by Header - '{headerText}', text - '{bodyText}' and tag - '{tagName}'")
+    public MainSteps checkAddedEntryByData(String headerText, String bodyText, String tagName){
+        page.checkEntryAdded(headerText, bodyText, tagName);
+        return this;
+    }
 
+    @Step("Return entries count")
+    public int entriesCount(){
+        return page.checkEntriesCount();
+    }
+
+    @Step("Compare entries before and after deleting")
+    public MainSteps entriesCount(int entriesBeforeDeleting){
+        page.checkEntriesCount(entriesBeforeDeleting);
+        return this;
+    }
+
+    @Step("Check lack of entries with deleting tag")
+    public MainSteps checkLackOfEntries(){
+        page.checkLackOfEntries();
+        return this;
+    }
+
+    @Step("Open page")
+    public MainSteps openPage(){
+        page.openPage();
+        return this;
+    }
 }

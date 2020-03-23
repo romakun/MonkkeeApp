@@ -8,11 +8,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -41,7 +36,7 @@ public class TestListener implements ITestListener {
     }
 
     @Attachment(value = "Last screen state", type = "image/png")
-    private byte[] takeScreenshot(ITestResult iTestResult) {
+    public byte[] takeScreenshot(ITestResult iTestResult) {
         try {
             return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
         } catch (NoSuchSessionException ex) {

@@ -1,12 +1,11 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
-import steps.LoginSteps;
-import steps.MailinatorSteps;
-import steps.MainSteps;
-import steps.RegistrationSteps;
+import steps.*;
 import tests.base.TestListener;
 
 
@@ -21,6 +20,10 @@ public class BaseTest {
     RegistrationSteps regsteps;
     LoginSteps loginsteps;
     MainSteps mainsteps;
+    EntrySteps entrysteps;
+    ManageTagSteps tagsteps;
+    EditTagSteps edittagsteps;
+    HeaderSteps headersteps;
 
     Properties properties = new Properties();
     Path path = Paths.get("src/test/resources/userData.xml");
@@ -28,17 +31,25 @@ public class BaseTest {
     @BeforeClass
     public void setupDriver() {
 
-        //   Configuration.headless = true;
-        Configuration.startMaximized = true;
-        Configuration.screenshots = true;
+        Configuration.headless = true;
+        Configuration.browserSize = "1920x1080";
         Configuration.clickViaJs = true;
+        Configuration.screenshots = true;
         Configuration.timeout = 6000;
         mailinator = new MailinatorSteps();
         regsteps = new RegistrationSteps();
         loginsteps = new LoginSteps();
         mainsteps = new MainSteps();
+        entrysteps = new EntrySteps();
+        tagsteps = new ManageTagSteps();
+        edittagsteps = new EditTagSteps();
+        headersteps = new HeaderSteps();
     }
 
+    @AfterClass
+    public void clearCash() {
+        WebDriverRunner.closeWebDriver();
+    }
 }
 
 

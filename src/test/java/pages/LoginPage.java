@@ -1,9 +1,13 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
+import org.testng.Assert;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static org.openqa.selenium.By.id;
 
 public class LoginPage extends BasePage {
@@ -24,8 +28,13 @@ public class LoginPage extends BasePage {
 
     @Override
     public LoginPage isPageOpened() {
-        $(LOGIN_BUTTON_CSS).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(LOGIN_BUTTON_CSS, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            return this;
+        } catch (ElementShould e) {
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
     }
 
     public LoginPage logIn(String email, String password) {
@@ -37,10 +46,10 @@ public class LoginPage extends BasePage {
 
     public void checkModal() {
         try {
-            $(MODAL_FEED_HEADER_CSS).shouldBe(Condition.visible);
-            $(byText(MODAL_CANCEL_BUTTON_TEXT)).click();
-        } catch (AssertionError e){
-
+            $(MODAL_FEED_HEADER_CSS, "Ждем модалку если появится").shouldBe(Condition.visible);
+            sleep(6000);
+            $(byText(MODAL_CANCEL_BUTTON_TEXT), "Закрываем модалку, раз появилась").click();
+        } catch (AssertionError e) {
         }
     }
 }

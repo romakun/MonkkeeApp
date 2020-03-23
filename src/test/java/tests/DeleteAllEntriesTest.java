@@ -11,9 +11,10 @@ public class DeleteAllEntriesTest extends BaseTest {
     @Test
     public void deleteAllEntries() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
                 .deleteAllEntries();
+        headersteps.logOut();
     }
 }

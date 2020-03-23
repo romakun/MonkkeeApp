@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class DeleteOneEntryTest extends BaseTest {
+public class CreateNewEntryTest extends BaseTest{
 
     RandomEntryData entryData = new RandomEntryData();
     String headerText = entryData.generateRandomHeader();
@@ -14,7 +14,7 @@ public class DeleteOneEntryTest extends BaseTest {
     String newTag = entryData.generateRandomTag();
 
     @Test
-    public void deleteEntry() throws IOException {
+    public void createNewEntry() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
         loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
@@ -27,7 +27,7 @@ public class DeleteOneEntryTest extends BaseTest {
                 .goMain();
         mainsteps
                 .checkOpened()
-                .deleteOneEntry(1);
+                .checkAddedEntryByData(headerText, bodyText, newTag);
         headersteps.logOut();
     }
 }

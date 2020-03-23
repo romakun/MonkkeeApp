@@ -1,5 +1,6 @@
 package tests;
 
+import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -7,14 +8,27 @@ import java.nio.file.Files;
 
 public class SearchEntryByTextTest extends BaseTest {
 
-    String searchedText = "d";
+    RandomEntryData entryData = new RandomEntryData();
+    String headerText = entryData.generateRandomHeader();
+    String bodyText = entryData.generateRandomBody();
+    String newTag = entryData.generateRandomTag();
 
     @Test
     public void searchEntryByText() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
-                .searchEntryByText(searchedText);
+                .clickCreateEntry();
+        entrysteps
+                .checkOpened()
+                .editEntryText(headerText, bodyText)
+                .addNewTag(newTag)
+                .goMain();
+        mainsteps
+                .checkOpened()
+                .searchEntryByText(headerText)
+                .searchEntryByText(bodyText);
+        headersteps.logOut();
     }
 }
