@@ -143,8 +143,9 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
-        sleep(2000);
+            $(TAGS_SECTION_ID).find(withText(tagName)).shouldBe(Condition.visible);
+            $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
+            sleep(3000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
