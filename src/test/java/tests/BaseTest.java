@@ -31,7 +31,7 @@ public class BaseTest {
     @BeforeClass
     public void setupDriver() {
 
-        Configuration.headless = true;
+//        Configuration.headless = true;
         Configuration.browserSize = "1920x1080";
         Configuration.clickViaJs = true;
         Configuration.screenshots = true;

@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -26,6 +27,7 @@ public class EntryPage extends BasePage {
     private static final By CHOOSE_TAG_SELECT_ID = id("select-tag");
     private static final By CHOOSE_TAG_BUTTON_ID = id("assign-existing-tag");
     private static final String ASSIGNED_TAGS_BLOCK_CSS = ".assigned-tags";
+    private static final String ASSIGNED_TAGS_CSS = "[ng-repeat='assignedTag in assignedTags']";
 
     @Override
     public EntryPage openPage() {
@@ -57,10 +59,12 @@ public class EntryPage extends BasePage {
     }
 
     public EntryPage addNewTagInEntry(String newTag){
+        $(CREATE_NEW_TAG_INPUT_ID).shouldBe(Condition.visible);
         $(CREATE_NEW_TAG_INPUT_ID, "Вводим имя нового тега в поле - " + newTag).sendKeys(newTag);
-        sleep(1000);
+        //sleep(1000);
         $(CREATE_NEW_TAG_BUTTON_ID, "Сохраняем новый тег").click();
-        sleep(1000);
+        //sleep(1000);
+        Selenide.$$(ASSIGNED_TAGS_CSS).shouldHaveSize(1);
         $(ASSIGNED_TAGS_BLOCK_CSS, "Проверяем есть ли созданный тег в блоке прикрепленных").find(byText(newTag)).shouldBe(Condition.visible);
         return this;
     }
@@ -80,7 +84,7 @@ public class EntryPage extends BasePage {
 
     public EntryPage goMain(){
         $(HOME_BUTTON_ID, "Жмем на кнопку перехода на главную страницу").click();
-        sleep(2000);
+        //sleep(2000);
         return this;
     }
 

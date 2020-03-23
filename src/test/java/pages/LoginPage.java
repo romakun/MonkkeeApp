@@ -46,9 +46,9 @@ public class LoginPage extends BasePage {
 
     public void checkModal() {
         try {
-            $(MODAL_FEED_HEADER_CSS, "Ждем модалку если появится").shouldBe(Condition.visible);
-            sleep(6000);
-            $(byText(MODAL_CANCEL_BUTTON_TEXT), "Закрываем модалку, раз появилась").click();
+            $(MODAL_FEED_HEADER_CSS, "Ждем модалку если появится").waitUntil(Condition.visible, 1000);
+//            sleep(6000);
+            $(byText(MODAL_CANCEL_BUTTON_TEXT), "Закрываем модалку, раз появилась").waitUntil(Condition.visible, 7000).click();
         } catch (AssertionError e) {
         }
     }

@@ -23,17 +23,16 @@ public class HeaderBlock extends BasePage {
     }
 
     public HeaderBlock logOut(){
-        sleep(2000);
+        $(withText(LOGOUT_BUTTON_TEXT)).shouldBe(Condition.visible);
         $(withText(LOGOUT_BUTTON_TEXT), "Жмем на кнопку Logout").click();
-        sleep(2000);
+//        sleep(2000);
         return this;
     }
 
     public void checkModal() {
         try {
-            $(MODAL_FEED_HEADER_CSS, "Ждем модалку если появится").shouldBe(Condition.visible);
-            sleep(6000);
-            $(byText(MODAL_CANCEL_BUTTON_TEXT), "Закрываем модалку, раз появилась").click();
+            $(MODAL_FEED_HEADER_CSS, "Ждем модалку если появится").waitUntil(Condition.visible, 1000);
+            $(byText(MODAL_CANCEL_BUTTON_TEXT), "Закрываем модалку, раз появилась").waitUntil(Condition.visible, 7000).click();
         } catch (AssertionError e) {
         }
     }

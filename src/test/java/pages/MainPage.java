@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.ex.ElementShould;
@@ -34,6 +35,7 @@ public class MainPage extends BasePage {
     private static final String ENTRY_TITLE_TEXT_CSS = ".title ";
     private static final By TAGS_SECTION_ID = id("tags");
     private static final String TAG_IN_ENTRY_CSS = "[ng-repeat='tag in entry.tags']";
+    private static final By RESET_SEARCH_LINK = id("reset-search");
 
     //CALENDAR LOCATORS
     private static final By CALENDAR_INPUT_ID = id("datepicker");
@@ -58,7 +60,9 @@ public class MainPage extends BasePage {
     @Override
     public MainPage isPageOpened() {
         try {
-            $(CREATE_ENTRY_BUTTON_ID, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            Selenide.$(CREATE_ENTRY_BUTTON_ID).waitUntil(Condition.visible, 5000);
+            Selenide.$(TAGS_SECTION_ID).waitUntil(Condition.visible, 2000);
+            Selenide.$(byText(MANAGE_TAGS_LINK_TEXT)).waitUntil(Condition.visible, 2000);
             return this;
         } catch (ElementShould e) {
             Assert.fail("Страница почему-то не загрузилась");
@@ -89,7 +93,7 @@ public class MainPage extends BasePage {
         if ($$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице больше 0").size() > 0) {
             $(SELECT_ALL_CHECKBOX_CSS, "Жмем на чекбокc выделения всех записей").click();
             deleteEntry();
-            sleep(2000);
+//            sleep(2000);
             $$(ENTRY_LOCATOR_CSS, "Проверяем, что не осталось ни одной записи на странице").shouldHaveSize(0);
             $(byText(NO_ENTRIES_FOUND_MESSAGE), "Проверяем, что присутсвутет текст, говорящий о том, что записей нет - " + NO_ENTRIES_FOUND_MESSAGE).shouldBe(Condition.visible);
         } else {
@@ -106,7 +110,8 @@ public class MainPage extends BasePage {
             entryCheckboxes.get(elementNumber - 1).click();
             log.info("Удаляем выделенную запись");
             deleteEntry();
-            sleep(2000);
+
+//            sleep(2000);
             $$(ENTRY_LOCATOR_CSS, "Сравниваем количество записей до и после удаления").shouldHaveSize(entryCountBeforeDeleting - 1);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
@@ -117,12 +122,13 @@ public class MainPage extends BasePage {
     public void deleteEntry() {
         $(DELETE_ENTRY_BUTTON_ID, "Жмем на кнопку удаления записей").click();
         switchTo().alert().accept();
+        $(DELETE_ENTRY_BUTTON_ID).shouldBe(Condition.disabled);
     }
 
     public MainPage searchEntryByText(String text) {
         $(SEARCH_INPUT_ID, "Воодим текс в поле поиска").setValue(text);
         $(SEARCH_BUTTON_CSS, "Нажимаем кнопку поиска").click();
-        sleep(2000);
+        $(RESET_SEARCH_LINK).shouldBe(Condition.visible);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
@@ -143,9 +149,10 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-            $(TAGS_SECTION_ID).shouldBe(Condition.visible);
-            $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
-            sleep(3000);
+        $(TAGS_SECTION_ID).shouldBe(Condition.visible);
+        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
+//            sleep(3000);
+        $(RESET_SEARCH_LINK).shouldBe(Condition.visible);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
