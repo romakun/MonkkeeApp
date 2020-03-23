@@ -149,7 +149,7 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID).shouldBe(Condition.visible);
+        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).waitUntil(Condition.visible, 5000);
         $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
 //            sleep(3000);
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
