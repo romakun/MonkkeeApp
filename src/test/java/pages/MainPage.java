@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
@@ -147,7 +148,9 @@ public class MainPage extends BasePage {
 
     public MainPage searchEntryByTag(String tagName) {
         $(TAGS_SECTION_ID).waitUntil(Condition.visible, 5000);
+        Configuration.clickViaJs = false;
         $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
+        Configuration.clickViaJs = true;
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
