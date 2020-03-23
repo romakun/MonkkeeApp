@@ -8,6 +8,8 @@ import com.codeborne.selenide.ex.ElementShould;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import tests.base.TestListener;
+import utils.AllureUtils;
 
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.By.id;
 import static org.openqa.selenium.By.xpath;
 
@@ -144,13 +147,16 @@ public class MainPage extends BasePage {
 
     public MainPage searchEntryByTag(String tagName) {
             $(TAGS_SECTION_ID).find(withText(tagName)).shouldBe(Condition.visible);
+            AllureUtils.takeScreenshot(getWebDriver());
             $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
+            AllureUtils.takeScreenshot(getWebDriver());
             sleep(3000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
                 try {
                     $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти тег - '" + tagName + "' в записи").find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
+                    AllureUtils.takeScreenshot(getWebDriver());
                 } catch (ElementShould e) {
                     Assert.fail("У найденных записей не верный тег");
                 }
