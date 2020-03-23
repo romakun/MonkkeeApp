@@ -1,7 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -28,22 +30,27 @@ public class RegistrationPage extends BasePage {
 
     @Override
     public RegistrationPage isPageOpened() {
-        $(COMPLETE_REGISTRATION_BUTTON).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(COMPLETE_REGISTRATION_BUTTON, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            return this;
+        } catch (ElementShould e){
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
     }
 
     public RegistrationPage fillInRegistrationData(String email, String password) {
-        element($(REGISTRATION_EMAIL_ID), "Вводим Email нового пользователя " + email).setValue(email);
-        element($(REGISTRATION_PASSWORD_ID), "Вводим пароль нового пользователя " + password).setValue(password);
-        element($(CONFIRM_PASSWORD_ID), "Вводим пароль в поле подтверждения " + password).setValue(password);
-        element($(TERMS_OF_USE_CHECKBOX_ID), "Активируем чекбокс c Условиями использования").click();
-        element($(LOST_PASSWORD_WARNING_CHECKBOX_ID), "Активируем чекбокс с условиями по паролю").click();
-        element($(COMPLETE_REGISTRATION_BUTTON), "Кликаем на кнопку ОК и завершаем регистрацию").click();
+        $(REGISTRATION_EMAIL_ID, "Вводим Email нового пользователя " + email).setValue(email);
+        $(REGISTRATION_PASSWORD_ID, "Вводим пароль нового пользователя " + password).setValue(password);
+        $(CONFIRM_PASSWORD_ID, "Вводим пароль в поле подтверждения " + password).setValue(password);
+        $(TERMS_OF_USE_CHECKBOX_ID, "Активируем чекбокс c Условиями использования").click();
+        $(LOST_PASSWORD_WARNING_CHECKBOX_ID, "Активируем чекбокс с условиями по паролю").click();
+        $(COMPLETE_REGISTRATION_BUTTON, "Кликаем на кнопку ОК и завершаем регистрацию").click();
         return this;
     }
 
     public RegistrationPage checkRegistrationResult() {
-        element($(byText(REGISTRATION_RESULT_MESSAGE)), "Проверяем сообщение о завершении регистрации").shouldBe(Condition.visible);
+        $(byText(REGISTRATION_RESULT_MESSAGE), "Проверяем сообщение о завершении регистрации").shouldBe(Condition.visible);
         return this;
     }
 }
