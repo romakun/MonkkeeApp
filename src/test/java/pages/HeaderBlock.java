@@ -25,7 +25,6 @@ public class HeaderBlock extends BasePage {
     public HeaderBlock logOut(){
         $(withText(LOGOUT_BUTTON_TEXT)).shouldBe(Condition.visible);
         $(withText(LOGOUT_BUTTON_TEXT), "Жмем на кнопку Logout").click();
-//        sleep(2000);
         return this;
     }
 

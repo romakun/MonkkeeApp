@@ -93,7 +93,6 @@ public class MainPage extends BasePage {
         if ($$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице больше 0").size() > 0) {
             $(SELECT_ALL_CHECKBOX_CSS, "Жмем на чекбокc выделения всех записей").click();
             deleteEntry();
-//            sleep(2000);
             $$(ENTRY_LOCATOR_CSS, "Проверяем, что не осталось ни одной записи на странице").shouldHaveSize(0);
             $(byText(NO_ENTRIES_FOUND_MESSAGE), "Проверяем, что присутсвутет текст, говорящий о том, что записей нет - " + NO_ENTRIES_FOUND_MESSAGE).shouldBe(Condition.visible);
         } else {
@@ -110,8 +109,6 @@ public class MainPage extends BasePage {
             entryCheckboxes.get(elementNumber - 1).click();
             deleteEntry();
             log.info("Удаляем выделенную запись");
-
-//            sleep(2000);
             $$(ENTRY_LOCATOR_CSS, "Сравниваем количество записей до и после удаления").shouldHaveSize(entryCountBeforeDeleting - 1);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
@@ -149,9 +146,8 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).shouldBe(Condition.visible);
+        $(TAGS_SECTION_ID).waitUntil(Condition.visible, 5000);
         $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
-//            sleep(3000);
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
