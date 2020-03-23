@@ -80,6 +80,7 @@ public class EntryPage extends BasePage {
 
     public EntryPage goMain(){
         $(HOME_BUTTON_ID, "Жмем на кнопку перехода на главную страницу").click();
+        sleep(2000);
         return this;
     }
 
