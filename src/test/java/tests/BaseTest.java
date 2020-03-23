@@ -29,7 +29,7 @@ public class BaseTest {
     @BeforeClass
     public void setupDriver() {
 
-        Configuration.headless = true;
+//        Configuration.headless = true;
         Configuration.startMaximized = true;
         Configuration.clickViaJs = true;
         Configuration.screenshots = true;
