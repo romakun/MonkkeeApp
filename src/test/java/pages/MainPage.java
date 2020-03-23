@@ -108,8 +108,8 @@ public class MainPage extends BasePage {
             List<SelenideElement> entryCheckboxes = $$(ENTRY_CHECKBOX_LOCATOR_CSS, "Создаем лист чекбоксов записей");
             log.info("Выделяем запись активаровав чекбокс");
             entryCheckboxes.get(elementNumber - 1).click();
-            log.info("Удаляем выделенную запись");
             deleteEntry();
+            log.info("Удаляем выделенную запись");
 
 //            sleep(2000);
             $$(ENTRY_LOCATOR_CSS, "Сравниваем количество записей до и после удаления").shouldHaveSize(entryCountBeforeDeleting - 1);
@@ -122,13 +122,13 @@ public class MainPage extends BasePage {
     public void deleteEntry() {
         $(DELETE_ENTRY_BUTTON_ID, "Жмем на кнопку удаления записей").click();
         switchTo().alert().accept();
-        $(DELETE_ENTRY_BUTTON_ID).shouldBe(Condition.disabled);
+        $(DELETE_ENTRY_BUTTON_ID).waitUntil(Condition.disabled, 6000);
     }
 
     public MainPage searchEntryByText(String text) {
         $(SEARCH_INPUT_ID, "Воодим текс в поле поиска").setValue(text);
         $(SEARCH_BUTTON_CSS, "Нажимаем кнопку поиска").click();
-        $(RESET_SEARCH_LINK).shouldBe(Condition.visible);
+        $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
