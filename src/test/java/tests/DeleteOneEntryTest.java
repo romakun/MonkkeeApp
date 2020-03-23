@@ -1,5 +1,6 @@
 package tests;
 
+import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -7,14 +8,26 @@ import java.nio.file.Files;
 
 public class DeleteOneEntryTest extends BaseTest {
 
-    int entryNumber = 2;
+    RandomEntryData entryData = new RandomEntryData();
+    String headerText = entryData.generateRandomHeader();
+    String bodyText = entryData.generateRandomBody();
+    String newTag = entryData.generateRandomTag();
 
     @Test
     public void deleteEntry() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
-                .deleteOneEntry(entryNumber);
+                .clickCreateEntry();
+        entrysteps
+                .checkOpened()
+                .editEntryText(headerText, bodyText)
+                .addNewTag(newTag)
+                .goMain();
+        mainsteps
+                .checkOpened()
+                .deleteOneEntry(1);
+        headersteps.logOut();
     }
 }

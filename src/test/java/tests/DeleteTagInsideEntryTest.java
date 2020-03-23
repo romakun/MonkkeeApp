@@ -4,7 +4,7 @@ import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
+
 
 public class DeleteTagInsideEntryTest extends BaseTest {
 
@@ -13,8 +13,7 @@ public class DeleteTagInsideEntryTest extends BaseTest {
 
     @Test
     public void deleteTagInsideEntry() throws IOException {
-        properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn("balabama@mailinator.com", "6699273Color");
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();
@@ -30,5 +29,6 @@ public class DeleteTagInsideEntryTest extends BaseTest {
         mainsteps
                 .searchEntryByTag(newTag)
                 .checkLackOfEntries();
+        headersteps.logOut();
     }
 }

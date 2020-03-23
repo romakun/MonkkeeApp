@@ -12,7 +12,7 @@ public class DeleteEntryInsideTest extends BaseTest{
     @Test
     public void deleteEntryInside() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened();
         entriesBeforeDeleting = mainsteps.entriesCount();
@@ -21,5 +21,6 @@ public class DeleteEntryInsideTest extends BaseTest{
                 .checkOpened()
                 .deleteEntryInside();
         mainsteps.entriesCount(entriesBeforeDeleting);
+        headersteps.logOut();
     }
 }

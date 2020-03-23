@@ -9,10 +9,6 @@
             <class name="tests.SearchEntryByTextTest"/>
             <class name="tests.DeleteEntryInsideTest"/>
             <class name="tests.DeleteOneEntryTest"/>
-        </classes>
-    </test> <!-- Test -->
-    <test name="Tags tests">
-        <classes>
             <class name="tests.DeleteTagInsideEntryTest"/>
             <class name="tests.SearchEntryByTagTest"/>
             <class name="tests.EditTagTest"/>

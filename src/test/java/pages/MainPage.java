@@ -57,13 +57,19 @@ public class MainPage extends BasePage {
 
     @Override
     public MainPage isPageOpened() {
-        $(CREATE_ENTRY_BUTTON_ID).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(CREATE_ENTRY_BUTTON_ID, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            return this;
+        } catch (ElementShould e) {
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
     }
 
     public MainPage goInEntry(int elementNumber) {
-        if ($$(ENTRY_LOCATOR_CSS).size() > 0) {
-            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
+        if ($$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице больше 0").size() > 0) {
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Добавляем все записи в лист");
+            log.info("Переходим в выбранную запись - " + elementNumber);
             entries.get(elementNumber - 1).click();
         } else {
             Assert.fail("Невозможно перейти в запись, т.к. её нет");
@@ -80,12 +86,12 @@ public class MainPage extends BasePage {
     }
 
     public MainPage deleteAllEntries() {
-        if ($$(ENTRY_LOCATOR_CSS).size() > 0) {
+        if ($$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице больше 0").size() > 0) {
             $(SELECT_ALL_CHECKBOX_CSS, "Жмем на чекбокc выделения всех записей").click();
             deleteEntry();
             sleep(2000);
-            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
-            $(byText(NO_ENTRIES_FOUND_MESSAGE)).shouldBe(Condition.visible);
+            $$(ENTRY_LOCATOR_CSS, "Проверяем, что не осталось ни одной записи на странице").shouldHaveSize(0);
+            $(byText(NO_ENTRIES_FOUND_MESSAGE), "Проверяем, что присутсвутет текст, говорящий о том, что записей нет - " + NO_ENTRIES_FOUND_MESSAGE).shouldBe(Condition.visible);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
         }
@@ -93,13 +99,15 @@ public class MainPage extends BasePage {
     }
 
     public MainPage deleteOneEntry(int elementNumber) {
-        if ($$(ENTRY_LOCATOR_CSS).size() > 0) {
-            int entryCountBeforeDeleting = $$(ENTRY_LOCATOR_CSS).size();
-            List<SelenideElement> entryCheckboxes = $$(ENTRY_CHECKBOX_LOCATOR_CSS);
+        if ($$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице больше 0").size() > 0) {
+            int entryCountBeforeDeleting = $$(ENTRY_LOCATOR_CSS, "Записываем количество записей").size();
+            List<SelenideElement> entryCheckboxes = $$(ENTRY_CHECKBOX_LOCATOR_CSS, "Создаем лист чекбоксов записей");
+            log.info("Выделяем запись активаровав чекбокс");
             entryCheckboxes.get(elementNumber - 1).click();
+            log.info("Удаляем выделенную запись");
             deleteEntry();
             sleep(2000);
-            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entryCountBeforeDeleting - 1);
+            $$(ENTRY_LOCATOR_CSS, "Сравниваем количество записей до и после удаления").shouldHaveSize(entryCountBeforeDeleting - 1);
         } else {
             Assert.fail("Невозможно удалить записи, т.к. их нет");
         }
@@ -112,17 +120,17 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByText(String text) {
-        $(SEARCH_INPUT_ID).setValue(text);
-        $(SEARCH_BUTTON_CSS).click();
+        $(SEARCH_INPUT_ID, "Воодим текс в поле поиска").setValue(text);
+        $(SEARCH_BUTTON_CSS, "Нажимаем кнопку поиска").click();
         sleep(2000);
         try {
-            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
                 try {
-                    $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(text));
+                    $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти текст - '" + text + "' в заголовке записи").find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(text));
                 } catch (ElementShould e) {
                     try {
-                        $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(text));
+                        $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти текст - '" + text + "' в теле записи").find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(text));
                     } catch (ElementShould e1) {
                         Assert.fail("Нет записей с таким текстом");
                     }
@@ -135,13 +143,13 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID).find(withText(tagName)).click();
+        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
         sleep(2000);
         try {
-            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
             for (int i = 0; i < entries.size(); i++) {
                 try {
-                    $$(ENTRY_LOCATOR_CSS, i).find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
+                    $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти тег - '" + tagName + "' в записи").find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
                 } catch (ElementShould e) {
                     Assert.fail("У найденных записей не верный тег");
                 }
@@ -153,12 +161,13 @@ public class MainPage extends BasePage {
     }
 
     public MainPage checkEntryCountWithTag(String tagName) {
-        String tagText = $(TAGS_SECTION_ID).find(withText(tagName)).getText();
+        String tagText = $(TAGS_SECTION_ID, "Записываем тег из блока").find(withText(tagName)).getText();
+        log.info("Сплитаем записанный тег, чтобы вытянуть его счетчик");
         String[] text = tagText.split(" ");
         int lastElement = text.length - 1;
         int entriesCountWithTag = Integer.parseInt(text[lastElement].replaceAll("[^0-9]", ""));
         try {
-            $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entriesCountWithTag);
+            $$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей равно счетчику тега - " + entriesCountWithTag).shouldHaveSize(entriesCountWithTag);
         } catch (ElementShould e) {
             Assert.fail("Количество записей не соответсвует счетчику тега");
         }
@@ -167,13 +176,13 @@ public class MainPage extends BasePage {
 
     public MainPage checkEntryAdded(String headerText, String bodyText, String tagName) {
         try {
-            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS);
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем список записей");
             for (int i = 0; i < entries.size(); i++) {
                 if (i < entries.size()) {
                     try {
-                        $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(headerText));
-                        $$(ENTRY_LOCATOR_CSS, i).find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(bodyText));
-                        $$(ENTRY_LOCATOR_CSS, i).find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
+                        $$(ENTRY_LOCATOR_CSS, i, "Ищем совпадение заголовка записи с заголовком - " + headerText).find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(headerText));
+                        $$(ENTRY_LOCATOR_CSS, i, "Ищем совпадение текста записи с текстом - " + bodyText).find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(bodyText));
+                        $$(ENTRY_LOCATOR_CSS, i, "Ищем совпадение тега записи с тегом - " + tagName).find(TAG_IN_ENTRY_CSS).shouldHave(Condition.matchesText(tagName));
                         return this;
                     } catch (ElementShould e) {
                     }
@@ -187,17 +196,17 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public int checkEntriesCount(){
-        return $$(ENTRY_LOCATOR_CSS).size();
+    public int checkEntriesCount() {
+        return $$(ENTRY_LOCATOR_CSS, "Проверяем количество записей на странице").size();
     }
 
-    public MainPage checkEntriesCount(int entriesBeforeDeleting){
-        $$(ENTRY_LOCATOR_CSS).shouldHaveSize(entriesBeforeDeleting - 1);
+    public MainPage checkEntriesCount(int entriesBeforeDeleting) {
+        $$(ENTRY_LOCATOR_CSS, "Сравниваем количество запсей на странице").shouldHaveSize(entriesBeforeDeleting - 1);
         return this;
     }
 
-    public MainPage checkLackOfEntries(){
-        $$(ENTRY_LOCATOR_CSS).shouldHaveSize(0);
+    public MainPage checkLackOfEntries() {
+        $$(ENTRY_LOCATOR_CSS, "Проверяем, что количество записей на странице == 0").shouldHaveSize(0);
         return this;
     }
 }

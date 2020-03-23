@@ -16,7 +16,7 @@ public class CreateNewEntryTest extends BaseTest{
     @Test
     public void createNewEntry() throws IOException {
         properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();
@@ -28,5 +28,6 @@ public class CreateNewEntryTest extends BaseTest{
         mainsteps
                 .checkOpened()
                 .checkAddedEntryByData(headerText, bodyText, newTag);
+        headersteps.logOut();
     }
 }

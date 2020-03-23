@@ -21,6 +21,7 @@ public class BaseTest {
     EntrySteps entrysteps;
     ManageTagSteps tagsteps;
     EditTagSteps edittagsteps;
+    HeaderSteps headersteps;
 
     Properties properties = new Properties();
     Path path = Paths.get("src/test/resources/userData.xml");
@@ -28,10 +29,11 @@ public class BaseTest {
     @BeforeClass
     public void setupDriver() {
 
-        //   Configuration.headless = true;
+        Configuration.headless = true;
         Configuration.startMaximized = true;
+        Configuration.clickViaJs = true;
         Configuration.screenshots = true;
-        Configuration.timeout = 3000;
+        Configuration.timeout = 8000;
         mailinator = new MailinatorSteps();
         regsteps = new RegistrationSteps();
         loginsteps = new LoginSteps();
@@ -39,8 +41,8 @@ public class BaseTest {
         entrysteps = new EntrySteps();
         tagsteps = new ManageTagSteps();
         edittagsteps = new EditTagSteps();
+        headersteps = new HeaderSteps();
     }
-
 }
 
 

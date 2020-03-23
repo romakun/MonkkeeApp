@@ -4,7 +4,7 @@ import models.RandomEntryData;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
+
 
 public class EditTagTest extends BaseTest {
 
@@ -26,8 +26,7 @@ public class EditTagTest extends BaseTest {
 
     @Test
     public void editTag() throws IOException {
-        properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com","6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        loginsteps.logIn("balabama@mailinator.com", "6699273Color");
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();
@@ -47,5 +46,6 @@ public class EditTagTest extends BaseTest {
                 .checkOpened()
                 .checkTagName(newTagName)
                 .checkColor(colors[4], newTagName);
+        headersteps.logOut();
     }
 }

@@ -30,8 +30,13 @@ public class MailinatorPage extends BasePage {
 
     @Override
     public MailinatorPage isPageOpened() {
-        $(EMAIL_INPUT_ID).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(EMAIL_INPUT_ID, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            return this;
+        } catch(ElementShould e){
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
     }
 
     public MailinatorPage goToEmailBox(String email) {

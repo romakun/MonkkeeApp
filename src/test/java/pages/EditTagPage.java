@@ -3,7 +3,9 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
 import org.testng.Assert;
 
 
@@ -24,30 +26,47 @@ public class EditTagPage extends BasePage {
 
     @Override
     public EditTagPage isPageOpened() {
-        $(PAGE_HEADER).shouldHave(Condition.text(PAGE_HEADER_TEXT));
+        try {
+            $(PAGE_HEADER, "По этому элементу определяем, что страница загрузилась " + PAGE_HEADER_TEXT).shouldHave(Condition.text(PAGE_HEADER_TEXT));
+            return this;
+        } catch (ElementShould e) {
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
+    }
+
+    public EditTagPage chooseTagColor(String colorName) {
+        try {
+            $(TAG_COLORS_LOCATOR_CSS, "Выбираем цвет для тега " + getColor(colorName)).find(getColor(colorName)).click();
+        } catch (ElementNotFound e) {
+            Assert.fail("Нет такого цвета " + getColor(colorName));
+        }
         return this;
     }
 
-    public EditTagPage chooseTagColor(String colorName){
-            try {
-                $(TAG_COLORS_LOCATOR_CSS).find(getColor(colorName)).click();
-            } catch (ElementNotFound e) {
-                Assert.fail("Нет такого цвета");
-            }
-        return this;
+    public void saveEditions() {
+        try {
+            $(SAVE_BUTTON_CSS, "Жмем на кнопку сохранения тега").click();
+        } catch (ElementNotFound e) {
+            Assert.fail("Не получилось нажать на кнопку " + SAVE_BUTTON_CSS);
+        }
     }
 
-    public void saveEditions(){
-        $(SAVE_BUTTON_CSS).click();
+    public EditTagPage changeTagName(String newTagName) {
+        try {
+            $(TAG_NAME_INPUT_ID, "Вводим новое название тега - " + newTagName).setValue(newTagName);
+            return this;
+        } catch (ElementNotFound e) {
+            Assert.fail("Инпут не найден " + TAG_NAME_INPUT_ID);
+            return null;
+        } catch (InvalidElementStateException e1) {
+            Assert.fail("В данный элемент нельзя вводить текст " + TAG_NAME_INPUT_ID);
+            return null;
+        }
     }
 
-    public EditTagPage changeTagName(String newTagName){
-        $(TAG_NAME_INPUT_ID).setValue(newTagName);
-        return this;
-    }
 
-
-    public String getColor(String colorName){
+    public String getColor(String colorName) {
         switch (colorName) {
             case ("DimGray"):
                 return "[style='background-color: rgb(112, 112, 112);']";
@@ -71,9 +90,5 @@ public class EditTagPage extends BasePage {
                 return null;
         }
     }
-
-
-
-
 
 }

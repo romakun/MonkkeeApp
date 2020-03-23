@@ -31,7 +31,7 @@ jobs:
           command: chmod 777 src/test/resources/webdrivers/chromedriver.exe
       - run:
           name: Running tests
-          command: mvn clean install
+          command: mvn clean -Dsurefire.suiteXmlFiles=src/test/resources/runTest2.xml
       - run:
           name: Generate allure report
           command: mvn allure:report

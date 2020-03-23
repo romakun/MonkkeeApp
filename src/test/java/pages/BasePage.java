@@ -47,17 +47,19 @@ public abstract class BasePage {
     }
 
     public SelenideElement $(String element, String logMessage){
-        $(element);
         log.info(logMessage);
+        $(element);
         return Selenide.$(element);
 
     }
 
-    public ElementsCollection $$(String elements){
+    public ElementsCollection $$(String elements, String logMessage){
+        log.info(logMessage);
         return Selenide.$$(elements);
     }
 
-    public SelenideElement $$(String elements, int elementNumber){
+    public SelenideElement $$(String elements, int elementNumber, String logMessage){
+        log.info(logMessage);
         String script = "arguments[0].style.border='3px solid red'";
         List<SelenideElement> listElements = Selenide.$$(elements);
         try {

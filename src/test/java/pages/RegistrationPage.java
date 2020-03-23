@@ -1,7 +1,9 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ex.ElementShould;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -28,8 +30,13 @@ public class RegistrationPage extends BasePage {
 
     @Override
     public RegistrationPage isPageOpened() {
-        $(COMPLETE_REGISTRATION_BUTTON).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(COMPLETE_REGISTRATION_BUTTON, "Ждем, пока страница загрузится").shouldBe(Condition.visible);
+            return this;
+        } catch (ElementShould e){
+            Assert.fail("Страница почему-то не загрузилась");
+            return null;
+        }
     }
 
     public RegistrationPage fillInRegistrationData(String email, String password) {
