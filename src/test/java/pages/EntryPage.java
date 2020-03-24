@@ -68,10 +68,15 @@ public class EntryPage extends BasePage {
     }
 
     public EntryPage addExistTagInEntry(String existTag){
-        $(CHOOSE_TAG_SELECT_ID, "Выбираем тег из списка существующих").selectOption(existTag);
-        $(CHOOSE_TAG_BUTTON_ID, "Добавляем тег в запись").click();
-        $(ASSIGNED_TAGS_BLOCK_CSS, "Проверяем есть ли добавленный тег в блоке прикрепленных").find(byText(existTag)).shouldBe(Condition.visible);
-        return this;
+        try {
+            $(CHOOSE_TAG_SELECT_ID, "Выбираем тег из списка существующих").shouldBe(Condition.visible).selectOption(existTag);
+            $(CHOOSE_TAG_BUTTON_ID, "Добавляем тег в запись").shouldBe(Condition.visible).click();
+            $(ASSIGNED_TAGS_BLOCK_CSS, "Проверяем есть ли добавленный тег в блоке прикрепленных").find(byText(existTag)).shouldBe(Condition.visible);
+            return this;
+        } catch (ElementShould e) {
+            Assert.fail("Элемент не появился");
+            return null;
+        }
     }
 
     public EntryPage deleteEntry(){

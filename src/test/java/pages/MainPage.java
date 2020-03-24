@@ -63,9 +63,7 @@ public class MainPage extends BasePage {
     @Override
     public MainPage isPageOpened() {
         try {
-            Selenide.$(CREATE_ENTRY_BUTTON_ID).waitUntil(Condition.visible, 5000);
-            Selenide.$(TAGS_SECTION_ID).waitUntil(Condition.visible, 2000);
-            Selenide.$(byText(MANAGE_TAGS_LINK_TEXT)).waitUntil(Condition.visible, 2000);
+            $(CALENDAR_INPUT_ID).shouldBe(Condition.visible);
             return this;
         } catch (ElementShould e) {
             Assert.fail("Страница почему-то не загрузилась");
