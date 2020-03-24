@@ -149,7 +149,7 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").waitUntil(Condition.visible, 5000).find(withText(tagName)).click();
+        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").shouldBe(Condition.visible).find(withText(tagName)).click();
         AllureUtils.takeScreenshot(getWebDriver());
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         AllureUtils.takeScreenshot(getWebDriver());
