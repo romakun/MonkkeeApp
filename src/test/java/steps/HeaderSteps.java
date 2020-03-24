@@ -11,12 +11,10 @@ public class HeaderSteps {
         block = new HeaderBlock();
     }
 
-    @Step("LogOut")
+    @Step("Click LogOut")
     public void logOut() {
         block
                 .logOut()
                 .checkModal();
     }
-
-
 }

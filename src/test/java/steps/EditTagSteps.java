@@ -12,24 +12,24 @@ public class EditTagSteps {
         page = new EditTagPage();
     }
 
-    @Step("check page opened")
+    @Step("Check edit tag page opened")
     public EditTagSteps checkOpened() {
         page.isPageOpened();
         return this;
     }
 
-    @Step("choose new tag color - '{colorName}'")
+    @Step("Choose new tag color - '{colorName}'")
     public EditTagSteps chooseNewTagColor(String colorName) {
         page.chooseTagColor(colorName);
         return this;
     }
 
-    @Step("Save changes")
+    @Step("Save tag changes")
     public void saveChanges() {
         page.saveEditions();
     }
 
-    @Step("Change tag name")
+    @Step("Change tag name to '{newTagName}'")
     public EditTagSteps changeTagName(String newTagName){
         page.changeTagName(newTagName);
         return this;

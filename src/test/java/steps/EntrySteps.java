@@ -9,7 +9,7 @@ public class EntrySteps {
 
     public EntrySteps() { page = new EntryPage();}
 
-    @Step("Check open page")
+    @Step("Check Entry page opened")
     public EntrySteps checkOpened(){
         page.isPageOpened();
         return this;
@@ -21,7 +21,7 @@ public class EntrySteps {
         return this;
     }
 
-    @Step("Add new tag in entry")
+    @Step("Add new tag - '{newTag}' in entry")
     public EntrySteps addNewTag(String newTag){
         page.addNewTagInEntry(newTag);
         return this;
@@ -43,7 +43,7 @@ public class EntrySteps {
         page.deleteEntry();
     }
 
-    @Step("Delete tag in entry")
+    @Step("Delete tag - '{tagName}' in entry")
     public EntrySteps deleteTag(String tagName){
         page.deleteTag(tagName);
         return this;

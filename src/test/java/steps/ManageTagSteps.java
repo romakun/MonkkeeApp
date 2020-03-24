@@ -10,7 +10,7 @@ public class ManageTagSteps {
     public ManageTagSteps() {page = new ManageTagsPage();}
 
 
-    @Step("Check page opened")
+    @Step("Check Manage tag page opened")
     public ManageTagSteps checkOpened(){
         page.isPageOpened();
         return this;
@@ -27,13 +27,13 @@ public class ManageTagSteps {
         page.goToTagEdit();
     }
 
-    @Step("Check color editions")
+    @Step("Check color editions int tag '{tagName}', expected color - '{colorName}'")
     public ManageTagSteps checkColor(String colorName, String tagName){
         page.checkTagColor(colorName, tagName);
         return this;
     }
 
-    @Step("Check tag name")
+    @Step("Check new tag name - '{tagName}'")
     public ManageTagSteps checkTagName(String tagName){
         page.checkTagName(tagName);
         return this;

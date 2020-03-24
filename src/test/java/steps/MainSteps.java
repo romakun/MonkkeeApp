@@ -72,7 +72,7 @@ public class MainSteps {
         return page.checkEntriesCount();
     }
 
-    @Step("Compare entries before and after deleting")
+    @Step("Compare entries count before and after deleting")
     public MainSteps entriesCount(int entriesBeforeDeleting){
         page.checkEntriesCount(entriesBeforeDeleting);
         return this;
@@ -84,7 +84,7 @@ public class MainSteps {
         return this;
     }
 
-    @Step("Open page")
+    @Step("Open main page")
     public MainSteps openPage(){
         page.openPage();
         return this;
