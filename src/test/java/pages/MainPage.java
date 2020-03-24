@@ -147,10 +147,7 @@ public class MainPage extends BasePage {
     }
 
     public MainPage searchEntryByTag(String tagName) {
-        $(TAGS_SECTION_ID).waitUntil(Condition.visible, 5000);
-        Configuration.clickViaJs = false;
-        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").find(withText(tagName)).click();
-        Configuration.clickViaJs = true;
+        $(TAGS_SECTION_ID, "Нажимаем на тег, по которому хотим искать записи").waitUntil(Condition.visible, 5000).find(withText(tagName)).click();
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
         try {
             List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
