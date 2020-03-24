@@ -20,9 +20,12 @@ public class DeleteTagInManageTagsTest extends BaseTest {
                 .checkOpened()
                 .clickCreateEntry();
         entrysteps
+                .checkOpened()
                 .addNewTag(newTag)
                 .goMain();
-        mainsteps.clickManageTagsLink();
+        mainsteps
+                .checkOpened()
+                .clickManageTagsLink();
         tagsteps
                 .checkOpened()
                 .deleteTag();

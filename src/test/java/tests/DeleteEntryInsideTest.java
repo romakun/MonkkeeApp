@@ -20,7 +20,9 @@ public class DeleteEntryInsideTest extends BaseTest{
         entrysteps
                 .checkOpened()
                 .deleteEntryInside();
-        mainsteps.entriesCount(entriesBeforeDeleting);
+        mainsteps
+                .checkOpened()
+                .entriesCount(entriesBeforeDeleting);
         headersteps.logOut();
     }
 }

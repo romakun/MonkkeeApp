@@ -22,15 +22,19 @@ public class DeleteTagInsideEntryTest extends BaseTest {
                 .checkOpened()
                 .clickCreateEntry();
         entrysteps
+                .checkOpened()
                 .addNewTag(newTag)
                 .goMain();
         mainsteps
+                .checkOpened()
                 .searchEntryByTag(newTag)
                 .goInEntry(1);
         entrysteps
+                .checkOpened()
                 .deleteTag(newTag)
                 .goMain();
         mainsteps
+                .checkOpened()
                 .searchEntryByTag(newTag)
                 .checkLackOfEntries();
         headersteps.logOut();
