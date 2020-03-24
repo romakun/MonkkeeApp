@@ -14,6 +14,12 @@ public class DeleteAllEntriesTest extends BaseTest {
         loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
+                .clickCreateEntry();
+        entrysteps
+                .checkOpened()
+                .goMain();
+        mainsteps
+                .checkOpened()
                 .deleteAllEntries();
         headersteps.logOut();
     }
