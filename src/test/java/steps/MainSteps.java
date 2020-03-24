@@ -47,11 +47,18 @@ public class MainSteps {
         return this;
     }
 
-    @Step("Search entry by text '{text}'")
-    public MainSteps searchEntryByText(String text){
-        page.searchEntryByText(text);
+    @Step("Search entry by header text '{text}'")
+    public MainSteps searchEntryByHeaderText(String text){
+        page.searchEntryByHeaderText(text);
         return this;
     }
+
+    @Step("Search entry by body text '{text}'")
+    public MainSteps searchEntryByBodyText(String text){
+        page.searchEntryByBodyText(text);
+        return this;
+    }
+
 
     @Step("Search entry by tag '{text}'")
     public MainSteps searchEntryByTag(String text){

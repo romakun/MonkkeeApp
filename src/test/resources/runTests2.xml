@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="1" name="Test suite" >
-    <test name="Entry tests">
+    <test name="run tests">
         <classes>
             <class name="tests.RegistrationTest"/>
             <class name="tests.MailinatorTest"/>

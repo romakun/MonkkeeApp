@@ -47,7 +47,7 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void clearCash() {
+    public void closeDriver() {
         WebDriverRunner.closeWebDriver();
     }
 }

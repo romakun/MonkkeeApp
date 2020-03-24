@@ -117,7 +117,7 @@ public class MainPage extends BasePage {
         $(DELETE_ENTRY_BUTTON_ID).waitUntil(Condition.cssClass("disabled"), 6000);
     }
 
-    public MainPage searchEntryByText(String text) {
+    public MainPage searchEntryByHeaderText(String text) {
         $(SEARCH_INPUT_ID, "Воодим текс в поле поиска").setValue(text);
         $(SEARCH_BUTTON_CSS, "Нажимаем кнопку поиска").click();
         $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
@@ -127,11 +127,26 @@ public class MainPage extends BasePage {
                 try {
                     $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти текст - '" + text + "' в заголовке записи").find(ENTRY_TITLE_TEXT_CSS).shouldHave(Condition.matchesText(text));
                 } catch (ElementShould e) {
-                    try {
-                        $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти текст - '" + text + "' в теле записи").find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(text));
-                    } catch (ElementShould e1) {
-                        Assert.fail("Нет записей с таким текстом");
-                    }
+                    Assert.fail("Нет записей с таким текстом");
+                }
+            }
+        } catch (ElementNotFound e) {
+            Assert.fail("Не найдено ни одной записи с таким текстом");
+        }
+        return this;
+    }
+
+    public MainPage searchEntryByBodyText(String text) {
+        $(SEARCH_INPUT_ID, "Воодим текс в поле поиска").setValue(text);
+        $(SEARCH_BUTTON_CSS, "Нажимаем кнопку поиска").click();
+        $(RESET_SEARCH_LINK).waitUntil(Condition.visible, 5000);
+        try {
+            List<SelenideElement> entries = $$(ENTRY_LOCATOR_CSS, "Создаем лист записей");
+            for (int i = 0; i < entries.size(); i++) {
+                try {
+                    $$(ENTRY_LOCATOR_CSS, i, "Пытаемся найти текст - '" + text + "' в теле записи").find(ENTRY_BODY_TEXT_CSS).shouldHave(Condition.matchesText(text));
+                } catch (ElementShould e) {
+                    Assert.fail("Нет записей с таким текстом");
                 }
             }
         } catch (ElementNotFound e) {

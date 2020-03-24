@@ -27,8 +27,8 @@ public class SearchEntryByTextTest extends BaseTest {
                 .goMain();
         mainsteps
                 .checkOpened()
-                .searchEntryByText(headerText)
-                .searchEntryByText(bodyText);
+                .searchEntryByHeaderText(headerText)
+                .searchEntryByBodyText(bodyText);
         headersteps.logOut();
     }
 }
