@@ -16,8 +16,8 @@ public class DeleteTagInsideEntryTest extends BaseTest {
 
     @Test
     public void deleteTagInsideEntry() throws IOException {
-//        properties.loadFromXML(Files.newInputStream(path));
-        loginsteps.logIn("balabama@mailinator.com", "6699273Color"/*properties.getProperty("userEmail"),properties.getProperty("userPassword")*/);
+        properties.loadFromXML(Files.newInputStream(path));
+        loginsteps.logIn(properties.getProperty("userEmail"),properties.getProperty("userPassword"));
         mainsteps
                 .checkOpened()
                 .clickCreateEntry();

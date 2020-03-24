@@ -3,17 +3,17 @@
 <suite thread-count="1" name="Test suite" >
     <test name="Entry tests">
         <classes>
-<!--            <class name="tests.RegistrationTest"/>-->
-<!--            <class name="tests.MailinatorTest"/>-->
-<!--            <class name="tests.CreateNewEntryTest"/>-->
-<!--            <class name="tests.SearchEntryByTextTest"/>-->
-<!--            <class name="tests.DeleteEntryInsideTest"/>-->
-<!--            <class name="tests.DeleteOneEntryTest"/>-->
+            <class name="tests.RegistrationTest"/>
+            <class name="tests.MailinatorTest"/>
+            <class name="tests.CreateNewEntryTest"/>
+            <class name="tests.SearchEntryByTextTest"/>
+            <class name="tests.DeleteEntryInsideTest"/>
+            <class name="tests.DeleteOneEntryTest"/>
             <class name="tests.DeleteTagInsideEntryTest"/>
-<!--            <class name="tests.SearchEntryByTagTest"/>-->
-<!--            <class name="tests.EditTagTest"/>-->
-<!--            <class name="tests.DeleteTagInManageTagsTest"/>-->
-<!--            <class name="tests.DeleteAllEntriesTest"/>-->
+            <class name="tests.SearchEntryByTagTest"/>
+            <class name="tests.EditTagTest"/>
+            <class name="tests.DeleteTagInManageTagsTest"/>
+            <class name="tests.DeleteAllEntriesTest"/>
         </classes>
     </test> <!-- Test -->
 </suite>
